@@ -14,7 +14,6 @@ services:
       backend:
         ipv4_address: 172.20.0.10
     <<: [*env_file,*restart]
-#    command: --default-authentication-plugin=caching_sha2_password instead
     environment:
       - MYSQL_ROOT_HOST="%"
       - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
