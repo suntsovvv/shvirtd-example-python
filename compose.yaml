@@ -1,0 +1,46 @@
+version: "3"
+include:
+  - proxy.yaml
+x-env_file: &env_file
+  env_file:
+    - .env
+x-restart: &restart
+  restart: always #no, on-failure , always(default), unless-stopped
+services:
+  db:
+    image: mysql:8
+    container_name: db
+    networks:
+      backend:
+        ipv4_address: 172.20.0.10
+    <<: [*env_file,*restart]
+#    command: --default-authentication-plugin=caching_sha2_password instead
+    environment:
+      - MYSQL_ROOT_HOST="%"
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - ./db_data:/var/lib/mysql
+    ports:
+      - "3306"
+
+     
+  web:
+    image: cr.yandex/crpmvidvusvhijpfejv1/web-python:1.0
+    container_name: web
+    depends_on: ["db"]
+    <<: [*env_file,*restart]
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_USER=${DB_USER}
+      - DB_NAME=${DB_NAME}
+    volumes:
+      - ./venv:/bin/activate
+    networks:
+      backend:
+        ipv4_address: 172.20.0.5
+    ports:
+    - "5000"
