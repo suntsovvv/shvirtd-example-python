@@ -299,3 +299,24 @@ mysql> show tables; SELECT * from requests LIMIT 10;
 +----+---------------------+-----------------+
 10 rows in set (0.00 sec)
 ```  
+## Необязательная часть  
+```
+root@study:/# docker context ls
+NAME        DESCRIPTION                               DOCKER ENDPOINT                      ERROR
+default *   Current DOCKER_HOST based configuration   unix:///var/run/docker.sock
+node_YC     Docker Node YC                            ssh://dockerremote@158.160.142.176
+root@study:/# docker context use node_YC
+node_YC
+Current context is now "node_YC"
+root@study:/# docker ps
+CONTAINER ID   IMAGE                                           COMMAND                  CREATED        STATUS          PORTS                                                    NAMES
+779cb26bf427   cr.yandex/crpmvidvusvhijpfejv1/web-python:1.0   "python main.py"         10 hours ago   Up 23 minutes   0.0.0.0:32775->5000/tcp, :::32775->5000/tcp              web
+1e5e4a8326d4   nginx:latest                                    "/docker-entrypoint.…"   10 hours ago   Up 23 minutes                                                            shvirtd-example-python-ingress-proxy-1
+57aaa6c91fb2   mysql:8                                         "docker-entrypoint.s…"   10 hours ago   Up 23 minutes   33060/tcp, 0.0.0.0:32768->3306/tcp, :::32768->3306/tcp   db
+0e200862ad1d   haproxy                                         "docker-entrypoint.s…"   10 hours ago   Up 23 minutes   127.0.0.1:8080->8080/tcp                                 shvirtd-example-python-reverse-proxy-1
+root@study:/#
+```
+### Задача 5 (*)
+### Задача 6
+
+
