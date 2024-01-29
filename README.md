@@ -334,50 +334,14 @@ cannot fetch image
 could not find image config
 ```
 ### Задача 6(*)
-Не находит по данному пути файл:
+
 ```
-root@study:/home/user# docker cp b03e20efbbf2:/bin/terraform terraform
-Error response from daemon: Could not find the file /bin/terraform in container b03e20efbbf2
-```
-Зашел в контейнер, так же не обнаружил:  
-```
-root@study:/home/user# docker exec -ti b03e20efbbf2 /bin/bash
-root@b03e20efbbf2:/# ls
-bin  boot  dev  etc  home  lib  lib32  lib64  libx32  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
-root@b03e20efbbf2:/# ls /bin
-'['              cp                        echo        infotocap   md5sum             prlimit        shuf         uniq
- addpart         csplit                    egrep       install     md5sum.textutils   ptx            sleep        unlink
- apt             cut                       env         ionice      mesg               pwd            sort         unshare
- apt-cache       dash                      expand      ipcmk       mkdir              rbash          split        update-alternatives
- apt-cdrom       date                      expiry      ipcrm       mkfifo             readlink       stat         users
- apt-config      dd                        expr        ipcs        mknod              realpath       stdbuf       utmpdump
- apt-get         deb-systemd-helper        factor      ischroot    mktemp             rename.ul      stty         vdir
- apt-key         deb-systemd-invoke        faillog     join        more               renice         su           wall
- apt-mark        debconf                   fallocate   last        mount              reset          sum          wc
- arch            debconf-apt-progress      false       lastb       mountpoint         resizepart     sync         wdctl
- awk             debconf-communicate       fgrep       lastlog     mv                 rev            tabs         whereis
- b2sum           debconf-copydb            fincore     ld.so       namei              rgrep          tac          which
- base32          debconf-escape            find        ldd         nawk               rm             tail         which.debianutils
- base64          debconf-set-selections    findmnt     link        newgrp             rmdir          tar          who
- basename        debconf-show              flock       linux32     nice               run-parts      taskset      whoami
- basenc          delpart                   fmt         linux64     nisdomainname      runcon         tee          x86_64
- bash            df                        fold        ln          nl                 savelog        tempfile     xargs
- bashbug         diff                      getconf     locale      nohup              script         test         yes
- captoinfo       diff3                     getent      localedef   nproc              scriptlive     tic          ypdomainname
- cat             dir                       getopt      logger      nsenter            scriptreplay   timeout      zcat
- chage           dircolors                 gpasswd     login       numfmt             sdiff          toe          zcmp
- chattr          dirname                   gpgv        logname     od                 sed            touch        zdiff
- chcon           dmesg                     grep        ls          pager              seq            tput         zdump
- chfn            dnsdomainname             groups      lsattr      partx              setarch        tr           zegrep
- chgrp           domainname                gunzip      lsblk       passwd             setpriv        true         zfgrep
- chmod           dpkg                      gzexe       lscpu       paste              setsid         truncate     zforce
- choom           dpkg-deb                  gzip        lsfd        pathchk            setterm        tset         zgrep
- chown           dpkg-divert               hardlink    lsipc       perl               sg             tsort        zless
- chrt            dpkg-maintscript-helper   head        lsirq       perl5.36.0         sh             tty          zmore
- chsh            dpkg-query                hostid      lslocks     pidof              sha1sum        tzselect     znew
- cksum           dpkg-realpath             hostname    lslogins    pinky              sha224sum      uclampset
- clear           dpkg-split                i386        lsmem       pldd               sha256sum      umount
- clear_console   dpkg-statoverride         iconv       lsns        pr                 sha384sum      uname
- cmp             dpkg-trigger              id          mawk        printenv           sha512sum      uncompress
- comm            du                        infocmp     mcookie     printf             shred          unexpand
+root@study:/home/user# docker run -dit -v $(pwd):/terraform terraform-docker console
+756eac415b1cdc002897725db74363428feebc0cded848eb95e855f630f064ff
+root@study:/home/user# docker ps
+CONTAINER ID   IMAGE              COMMAND               CREATED         STATUS         PORTS     NAMES
+756eac415b1c   terraform-docker   "terraform console"   3 seconds ago   Up 2 seconds             dazzling_nightingale
+root@study:/home/user# docker cp 756eac415b1c:/bin/terraform terraform
+Successfully copied 84.5MB to /home/user/terraform
+root@study:/home/user#
 ```
