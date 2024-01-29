@@ -1,4 +1,4 @@
-
+`#000000`
 ### Задача 1
 Dockerfile.python:  
 ```
@@ -42,7 +42,7 @@ vulnerabilities:
 
 compose.yaml:
 
-```
+```yaml
 version: "3"
 include:
   - proxy.yaml
