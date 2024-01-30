@@ -323,7 +323,7 @@ root@study:/#
 >Любые образы не открывает. Пробовал на разных машинах:
 >
 Выяснил проблему. Не работает на последней версии докера, на странице асвтора уже есть тема по этой проблеме.  
-Нашел на у себя машину с сторай версией Докера. на ней заработло.  
+Нашел у себя машину с сторай версией Докера. на ней заработло.  
 ```
 oot@astra:/home/user#  docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock wagoodman/dive hashicorp/terraform
 Unable to find image 'wagoodman/dive:latest' locally
