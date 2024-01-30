@@ -318,22 +318,68 @@ root@study:/#
 ### Задача 5 (*)
 ### Задача 6
 
-У меня dive не срабатывает, нагуглить решение не получилось.
-Любые образы не открывает. Пробовал на разных машинах:
+>У меня dive не срабатывает, нагуглить решение не получилось.
+>
+>Любые образы не открывает. Пробовал на разных машинах:
+>
+Выяснил проблему. Не работает на последней версии докера, на странице асвтора уже есть тема по этой проблеме.  
+Нашел на у себя машину с сторай версией Докера. на ней заработло.  
 ```
-user@fv44f521bi541f1iqsqq:~$ docker run -ti --rm  -v /var/run/docker.sock:/var/run/docker.sock wagoodman/dive:latest nginx
-Image Source: docker://nginx
-Fetching image... (this can take a while for large images)
-cannot fetch image
-could not find image config
-user@fv44f521bi541f1iqsqq:~$ docker run -ti --rm  -v /var/run/docker.sock:/var/run/docker.sock wagoodman/dive:latest hashicorp/terraform
+oot@astra:/home/user#  docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock wagoodman/dive hashicorp/terraform
+Unable to find image 'wagoodman/dive:latest' locally
+latest: Pulling from wagoodman/dive
+1b7ca6aea1dd: Pull complete 
+1106dec17b95: Pull complete 
+794178f0cb8e: Pull complete 
+Digest: sha256:b848147da526113d2b8854ebacf65dc5d3a76b7b1cfdea088070884b8d2fffb2
+Status: Downloaded newer image for wagoodman/dive:latest
 Image Source: docker://hashicorp/terraform
 Fetching image... (this can take a while for large images)
-cannot fetch image
-could not find image config
+Handler not available locally. Trying to pull 'hashicorp/terraform'...
+Using default tag: latest
+latest: Pulling from hashicorp/terraform
+661ff4d9561e: Pull complete 
+091653346011: Pull complete 
+4d62f043b3fc: Pull complete 
+Digest: sha256:d3e3361a3a16885c859976bd8868368a38ecfc7f731a8f06b7e44264a26f23a6
+Status: Downloaded newer image for hashicorp/terraform:latest
+docker.io/hashicorp/terraform:latest
+Analyzing image...
+Building cache...
+
+```
+![image](https://github.com/suntsovvv/shvirtd-example-python/assets/154943765/aedf60fb-f2fd-4485-9b96-25446e2a33e2)  
+```
+root@astra:/home/user# mkdir task6
+root@astra:/home/user# cd task6
+root@astra:/home/user/task6# docker save 104cce6d697d -o terra.tar
+root@astra:/home/user/task6# ls
+terra.tar
+oot@astra:/home/user/task6# tar -xvf terra.tar 
+104cce6d697da972ae9499c8b9f657d2123ddfdf2ca39d5c937497b2a70879c1.json
+1bc73caa7b262dbd0814efe29085c9ffcbc844e4ee129ccc8691ecdac9f2db1b/
+1bc73caa7b262dbd0814efe29085c9ffcbc844e4ee129ccc8691ecdac9f2db1b/VERSION
+1bc73caa7b262dbd0814efe29085c9ffcbc844e4ee129ccc8691ecdac9f2db1b/json
+1bc73caa7b262dbd0814efe29085c9ffcbc844e4ee129ccc8691ecdac9f2db1b/layer.tar
+83920eab5a0564be2eafe2ec1358fadc97744b0e2a874c64834d41eb2cecd63f/
+83920eab5a0564be2eafe2ec1358fadc97744b0e2a874c64834d41eb2cecd63f/VERSION
+83920eab5a0564be2eafe2ec1358fadc97744b0e2a874c64834d41eb2cecd63f/json
+83920eab5a0564be2eafe2ec1358fadc97744b0e2a874c64834d41eb2cecd63f/layer.tar
+ca99d21ffb4709384553193e15064e8ebafb34401b105e507433eb0b8c41b210/
+ca99d21ffb4709384553193e15064e8ebafb34401b105e507433eb0b8c41b210/VERSION
+ca99d21ffb4709384553193e15064e8ebafb34401b105e507433eb0b8c41b210/json
+ca99d21ffb4709384553193e15064e8ebafb34401b105e507433eb0b8c41b210/layer.tar
+manifest.json
+root@astra:/home/user/task6# tar -xvf ca99d21ffb4709384553193e15064e8ebafb34401b105e507433eb0b8c41b210/layer.tar
+bin/
+bin/terraform
+root@astra:/home/user/task6# ls -l bin | grep terraform 
+-rwxr-xr-x 1 root root 84471808 янв 24 21:49 terraform
+root@astra:/home/user/task6# 
+
 ```
 ### Задача 6(*)
-
+Действительно, изначально неверно указал образ.
 ```
 root@study:/home/user# docker run -dit -v $(pwd):/terraform terraform-docker console
 756eac415b1cdc002897725db74363428feebc0cded848eb95e855f630f064ff
@@ -344,3 +390,4 @@ root@study:/home/user# docker cp 756eac415b1c:/bin/terraform terraform
 Successfully copied 84.5MB to /home/user/terraform
 root@study:/home/user#
 ```
+
